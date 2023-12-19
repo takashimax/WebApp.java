@@ -7,26 +7,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.UserInfo;
-import com.example.demo.form.SignupForm;
+import com.example.demo.form.UserForm;
 import com.example.demo.repository.UserInfoRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class SignupService {
-
+public class UserService {
 	private final UserInfoRepository userInfoRepository;
 	private final Mapper mapper;
 	private final PasswordEncoder passwordEncoder;
-	
-	public Optional<Object> signupUser(SignupForm signupForm) {
-		Optional<UserInfo> userInfoExisted = userInfoRepository.findById(signupForm.getEmail());
-		if(userInfoExisted.isPresent()) {
+
+	public Optional<UserInfo> serchUser(String email) {
+		return userInfoRepository.findByEmail(email);
+	}
+
+	public Optional<Object> signupUser(UserForm userForm) {
+		Optional<UserInfo> userInfoExisted = userInfoRepository.findByEmail(userForm.getEmail());
+		if (userInfoExisted.isPresent()) {
 			return Optional.empty();
 		}
-		UserInfo userInfo = mapper.map(signupForm, UserInfo.class);
-		String encodedPassword = passwordEncoder.encode(signupForm.getPassword());
+		UserInfo userInfo = mapper.map(userForm, UserInfo.class);
+		String encodedPassword = passwordEncoder.encode(userForm.getPassword());
 		userInfo.setPassword(encodedPassword);
 		return Optional.of(userInfoRepository.save(userInfo));
 	}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<h2>投稿ページ</h2>
+	<form th:action="@{/posting}" method="post">
+		<ul>
+			<li><a href="#">詳細</a></li>
+			<li><a href="#">編集</a></li>
+			<li><a href="#">削除</a></li>
+		</ul>
+		<div>
+			<label>投稿内容</label>
+			<input type="text">
+		</div>
+		<a href="#">
+			<span>
+				投稿者<span></span>
+			</span>
+		</a>
+		<span>
+			<img src="">
+		</span>
+	</form>
+	<a th:href="@{/}">ホームへ</a>
+</body>
+
+</html>

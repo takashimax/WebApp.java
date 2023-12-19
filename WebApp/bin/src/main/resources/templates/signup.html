@@ -7,7 +7,7 @@
 <body>
 会員登録
 <span th:text="${message}"></span>
-<form th:action="@{/signup}" method="post" th:object="${userForm}">
+<form th:action="@{/signup}" method="post" th:object="${signupForm}">
 	<div>
 		<label>ログインID</label>
 		<input type="email" th:field="*{email}">

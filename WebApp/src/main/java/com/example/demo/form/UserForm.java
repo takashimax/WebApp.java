@@ -3,8 +3,8 @@ package com.example.demo.form;
 import lombok.Data;
 
 @Data
-public class SignupForm {
-	
+public class UserForm {
+	private Integer userId;
 	private String email;
 	private String password;
 }
