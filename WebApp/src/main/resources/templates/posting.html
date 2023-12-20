@@ -28,6 +28,12 @@
 		</span>
 	</form>
 	<a th:href="@{/}">ホームへ</a>
+	<table>
+		<tr th:each="posting : ${postingList}" th:object="${posting}">
+			<td th:text="*{postingTitle}"></td>
+			<td th:text="*{postingText}"></td>
+		</tr>
+	</table>
 </body>
 
 </html>

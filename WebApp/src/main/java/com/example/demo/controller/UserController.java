@@ -1,11 +1,15 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.context.MessageSource;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -22,46 +26,62 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
-	private final PasswordEncoder passwordEncoder;
-	
 	private final MessageSource messageSource;
+
 	@GetMapping("/login")
 	public String viewLogin(Model model, UserForm userForm) {
 		return "login";
 	}
 
 	@PostMapping("/login")
-	public String login(Model model, UserForm userForm) {
-		Optional<UserInfo> userInfo = userService.serchUser(userForm.getEmail());
-		boolean isCorrectUserAuth = userInfo.isPresent()
-				&& passwordEncoder.matches(userForm.getPassword(), userInfo.get().getPassword());
-		if(isCorrectUserAuth) {
-			return "redirect:/home";
-			
-		}else {
-			String message = AppUtil.getMessage(messageSource, MessageConst.LOGIN_WRONG_INPUT);
-			model.addAttribute("message", message);
+	public String login(Model model, @Validated UserForm userForm, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			List<String> errorList = new ArrayList<String>();
+			for (ObjectError error : bindingResult.getAllErrors()) {
+				errorList.add(error.getDefaultMessage());
+			}
+			model.addAttribute("validationError", errorList);
 			return "login";
+		} else {
+			boolean result = userService.serchUser(userForm);
+			if (result) {
+				return "redirect:/";
+			} else {
+				String message = AppUtil.getMessage(messageSource, MessageConst.LOGIN_WRONG_INPUT);
+				model.addAttribute("message", message);
+				return "login";
+			}
 		}
 	}
-	
+
 	@GetMapping("/signup")
 	public String viewSignup(Model model, UserForm userForm) {
 		return "signup";
 	}
 
 	@PostMapping("/signup")
-	public void signup(Model model, UserForm userForm) {
-		var userInfoOpt = userService.signupUser(userForm);
-		String message = AppUtil.getMessage(messageSource, getMessageKey(userInfoOpt));
-		model.addAttribute("message", message);
+	public String signup(Model model, @Validated UserForm userForm, BindingResult bindingResult) {
 
+		if (bindingResult.hasErrors()) {
+			List<String> errorList = new ArrayList<String>();
+			for (ObjectError error : bindingResult.getAllErrors()) {
+				errorList.add(error.getDefaultMessage());
+			}
+			model.addAttribute("validationError", errorList);
+			return "signup";
+		} else {
+			Optional<UserInfo> userInfoOpt = userService.signupUser(userForm);
+			String message = AppUtil.getMessage(messageSource, getMessageKey(userInfoOpt));
+			model.addAttribute("message", message);
+			return "redirect:/login";
+		}
 	}
-	
-	private String getMessageKey(Optional<Object> userInfoOpt) {
-		if(userInfoOpt.isEmpty()) {
+
+	private String getMessageKey(Optional<UserInfo> userInfoOpt) {
+		if (userInfoOpt.isEmpty()) {
 			return MessageConst.SIGNUP_EXISTED_LOGIN_ID;
-		}else {
+		} else {
 			return MessageConst.SIGNUP_SUCCEED;
 		}
 	}

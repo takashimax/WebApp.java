@@ -19,20 +19,20 @@ import lombok.Data;
 @Data
 @Table(name = "posting")
 public class PostingInfo {
-	
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postingId;
+    
+    @Column(name = "posting_title")
+    private String postingTitle;
+    
+    @Column(name = "posting_text")
+    private String postingText;
 
-    private String text;
-
-    @Column(name = "image")
+    @Column(name = "image_url")
     private String imageUrl;
-
-    @Column(name = "user_id")
-    private Integer userId;
 
     @CreationTimestamp
     @Column(name = "created_at")

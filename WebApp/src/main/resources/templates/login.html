@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>ログイン</title>
+	<meta charset="UTF-8">
+	<title>ログイン</title>
 </head>
+
 <body>
-ログイン画面
-<span th:text="${message}"></span>
-<form th:action="@{/login}" method="post" th:object="${userForm}">
-	<div>
-		<label>ログインID</label>
-		<input type="email" th:field="*{email}">
-	</div>
-	<div>
-		<label>パスワード</label>
-		<input type="password" th:field="*{password}">
-	</div>
-	<div>
-		<input type="submit" value="ログイン">
-	</div>
-</form>
-<a th:href="@{/signup}">ユーザー登録</a>
+	ログイン画面
+	<span th:text="${message}"></span>
+	<form th:action="@{/login}" method="post" th:object="${userForm}">
+		<div>
+			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Title Error</p>
+			<label>メースアドレス</label>
+			<input type="text" th:field="*{email}">
+		</div>
+		<div>
+			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Price Error</p>
+			<label>パスワード</label>
+			<input type="password" th:field="*{password}">
+		</div>
+		<div>
+			<input type="submit" value="ログイン">
+		</div>
+	</form>
+	<a th:href="@{/signup}">ユーザー登録</a>
 </body>
+
 </html>
