@@ -44,7 +44,7 @@ public class UserController {
 			model.addAttribute("validationError", errorList);
 			return "login";
 		} else {
-			boolean result = userService.serchUser(userForm);
+			boolean result = userService.searchUser(userForm);
 			if (result) {
 				return "redirect:/";
 			} else {

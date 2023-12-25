@@ -7,18 +7,22 @@
 </head>
 
 <body>
-	会員登録
+	<h1>会員登録</h1>
 	<span th:text="${message}"></span>
 	<form th:action="@{/signup}" method="post" th:object="${userForm}">
 		<div>
 			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Title Error</p>
 			<label>メースアドレス</label>
-			<input type="text" th:field="*{email}">
+			<div>
+				<input type="text" th:field="*{email}">
+			</div>
 		</div>
 		<div>
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Price Error</p>
 			<label>パスワード</label>
-			<input type="password" th:field="*{password}">
+			<div>
+				<input type="password" th:field="*{password}">
+			</div>
 		</div>
 		<div>
 			<input type="submit" value="登録">

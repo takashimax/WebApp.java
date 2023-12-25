@@ -35,11 +35,11 @@ public class PostingInfo {
     private String imageUrl;
 
     @CreationTimestamp
-    @Column(name = "created_at")
+    @Column(name = "create_at")
     private LocalDateTime createTime;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Column(name = "update_at")
     private LocalDateTime updateTime;
 
     @ManyToOne(optional = true)

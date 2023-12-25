@@ -21,7 +21,7 @@ public class UserService {
 	private final Mapper mapper;
 	private final PasswordEncoder passwordEncoder;
 
-	public boolean serchUser(UserForm userForm) {
+	public boolean searchUser(UserForm userForm) {
 		Optional<UserInfo> userInfo = userInfoRepository.findByEmail(userForm.getEmail());
 		boolean isCorrectUserAuth = userInfo.isPresent()
 				&& passwordEncoder.matches(userForm.getPassword(), userInfo.get().getPassword());
