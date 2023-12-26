@@ -10,15 +10,17 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Entity
-@Table(name = "user_info", uniqueConstraints = { @UniqueConstraint(columnNames = "email") })
+@Table(name = "item_category", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "item_name") })
 @Data
-public class UserInfo {
+public class ItemCategoryInfo {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer userId;
+	@Column(name = "item_id")
+	private Integer itemId;
 
-	private String email;
+	@Column(name = "item_name")
+	private String itemName;
 
-	private String password;
 }

@@ -13,7 +13,7 @@
 	<span th:text="${message}"></span>
 	<form th:action="@{/login}" method="post" th:object="${userForm}">
 		<div>
-			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Title Error</p>
+			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Title Error</p>
 			<label>メースアドレス</label>
 			<div>
 				<input type="text" th:field="*{email}">
