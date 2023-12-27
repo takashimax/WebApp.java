@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.entity.ItemCategoryInfo;
 import com.example.demo.entity.ItemDetailInfo;
 import com.example.demo.repository.ItemDetailRepository;
-import com.example.demo.repository.PreCookRepository;
+import com.example.demo.repository.ItemCategoryRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,23 +19,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrecookController {
 	
-	private final PreCookRepository preCookRepository;
+	private final ItemCategoryRepository itemCategoryRepository;
 	private final ItemDetailRepository itemDetailRepository;
-	private final ItemCategoryInfo itemCategoryInfo;
 	
 	@GetMapping("/precook/{itemName}")
 	public String view(@PathVariable(name = "itemName") String itemName, Model model) {
 		/*
 		 * アイテムカテゴリーの品目名の取得
 		 */
-		Optional<ItemCategoryInfo> itemCategoryOpt = preCookRepository.findByItemName(itemName);
+		Optional<ItemCategoryInfo> itemCategoryOpt = itemCategoryRepository.findByItemName(itemName);
 		model.addAttribute("itemCategoryOpt",itemCategoryOpt );
 		/*
-		 * アイテムカテゴリーのIDからdetailテーブルの情報を取得
+		 * アイテムカテゴリーの品目名からdetailテーブルの情報を取得
 		 */
-		model.addAttribute("itemId", itemCategoryInfo.getItemId());
 		
-		List<ItemDetailInfo> itemDetailList = itemDetailRepository.findAll();
+		List<ItemDetailInfo> itemDetailList = itemDetailRepository.findByItemCategoryInfo(itemCategoryOpt);
 		model.addAttribute("itemDetailList", itemDetailList);
 		return "precook";
 	}

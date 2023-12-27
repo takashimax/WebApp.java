@@ -19,6 +19,7 @@ import com.example.demo.form.UserForm;
 import com.example.demo.service.UserService;
 import com.example.demo.util.AppUtil;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -27,6 +28,7 @@ public class UserController {
 
 	private final UserService userService;
 	private final MessageSource messageSource;
+	private final HttpSession session;
 
 	@GetMapping("/login")
 	public String viewLogin(Model model, UserForm userForm) {
@@ -46,7 +48,8 @@ public class UserController {
 		} else {
 			boolean result = userService.searchUser(userForm);
 			if (result) {
-				return "redirect:/";
+				session.setAttribute("userId", userForm.getUserId());
+				return "redirect:posting";
 			} else {
 				String message = AppUtil.getMessage(messageSource, MessageConst.LOGIN_WRONG_INPUT);
 				model.addAttribute("message", message);

@@ -14,16 +14,23 @@
 			<li><a href="#">編集</a></li>
 			<li><a href="#">削除</a></li>
 		</ul>
-
 		<div>
+			<label>imageUrl</label>
 			<div>
-				<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</p>
-				<label>タイトル</label>
-				<input type="text" th:field="*{title}">
+				<input type="text" th:field="*{imageUrl}">
 			</div>
-			<p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text Error</p>
+		</div>
+		<div>
+			<label>タイトル</label>
+			<div>
+				<input type="text" th:field="*{postingTitle}">
+			</div>
+		</div>
+		<div>
 			<label>投稿内容</label>
-			<input type="text" th:field="*{text}">
+			<div>
+				<textarea th:field="*{postingText}" rows="10" cols="50"></textarea>
+			</div>
 		</div>
 		<span>
 			<img src="">

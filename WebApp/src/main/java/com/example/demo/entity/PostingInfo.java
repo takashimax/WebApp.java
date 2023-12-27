@@ -43,6 +43,6 @@ public class PostingInfo {
     private LocalDateTime updateTime;
 
     @ManyToOne(optional = true)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserInfo userInfo;
 }

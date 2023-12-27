@@ -11,6 +11,7 @@ import com.example.demo.entity.UserInfo;
 import com.example.demo.form.UserForm;
 import com.example.demo.repository.UserInfoRepository;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,12 +21,14 @@ public class UserService {
 	private final UserInfoRepository userInfoRepository;
 	private final Mapper mapper;
 	private final PasswordEncoder passwordEncoder;
+	private final HttpSession session;
 
 	public boolean searchUser(UserForm userForm) {
 		Optional<UserInfo> userInfo = userInfoRepository.findByEmail(userForm.getEmail());
 		boolean isCorrectUserAuth = userInfo.isPresent()
 				&& passwordEncoder.matches(userForm.getPassword(), userInfo.get().getPassword());
 		if (isCorrectUserAuth) {
+			session.setAttribute("userInfo", userInfo);
 			return true;
 		}else {
 			return false;

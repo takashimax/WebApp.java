@@ -24,6 +24,7 @@ public class PostingService {
 	public List<PostingInfo> findAll() {
 		return postingRepository.findAll();
 	}
+	
 
 	public Optional<PostingInfo> posting(PostingForm postingForm) {
 		PostingInfo postingInfo = mapper.map(postingForm, PostingInfo.class);

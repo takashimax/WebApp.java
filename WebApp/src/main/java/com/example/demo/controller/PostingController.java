@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.PostingInfo;
+import com.example.demo.entity.UserInfo;
 import com.example.demo.form.PostingForm;
 import com.example.demo.repository.PostingRepository;
 import com.example.demo.service.PostingService;
@@ -23,8 +24,8 @@ public class PostingController {
 	private final PostingRepository postingRepository;
 
 	@GetMapping("/posting")
-	public String view(PostingForm postingForm, Model model) {
-		List<PostingInfo> postingList = postingService.findAll();
+	public String view(UserInfo userInfo, Model model) {
+		List<PostingInfo> postingList = postingRepository.findAll();
 		model.addAttribute("postingList", postingList);
 		return "posting";
 	}

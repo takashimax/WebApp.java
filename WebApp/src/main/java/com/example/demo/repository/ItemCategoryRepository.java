@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.ItemCategoryInfo;
 
 @Repository
-public interface PreCookRepository extends
+public interface ItemCategoryRepository extends
 		JpaRepository<ItemCategoryInfo, Integer> {
 	public Optional<ItemCategoryInfo> findByItemName(String itemName);
 }
