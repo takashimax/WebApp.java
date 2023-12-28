@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.PostingInfo;
-import com.example.demo.entity.UserInfo;
 import com.example.demo.form.PostingForm;
 import com.example.demo.repository.PostingRepository;
 import com.example.demo.service.PostingService;
@@ -24,7 +23,7 @@ public class PostingController {
 	private final PostingRepository postingRepository;
 
 	@GetMapping("/posting")
-	public String view(UserInfo userInfo, Model model) {
+	public String view(PostingForm postingForm, Model model) {
 		List<PostingInfo> postingList = postingRepository.findAll();
 		model.addAttribute("postingList", postingList);
 		return "posting";
@@ -32,7 +31,7 @@ public class PostingController {
 
 	@PostMapping("/posting")
 	public String posting(@Validated PostingForm postingForm, BindingResult bindingResult, Model model) {
-		model.addAttribute("posting", postingRepository.findAll());
+		model.addAttribute("posting", postingService.posting(postingForm));
 		if(bindingResult.hasErrors()) {
 			return "posting";
 		} else {

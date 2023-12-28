@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.ItemCategoryInfo;
+import com.example.demo.form.ItemCategoryForm;
 import com.example.demo.repository.ItemCategoryRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,10 @@ public class HomeController {
 		return "home";
 	}
 	@PostMapping("/")
-	public void posting() {
+	public String posting(ItemCategoryForm itemCategoryform, RedirectAttributes redirectAttributes) {
+		String itemCategoryInfo = itemCategoryform.getItemName();
+		redirectAttributes.addFlashAttribute("itemCategoryInfo", itemCategoryRepository.findByItemName(itemCategoryInfo));
+		return "precook";
 	}
+
 }

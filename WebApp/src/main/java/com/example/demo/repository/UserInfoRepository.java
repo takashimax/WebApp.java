@@ -10,5 +10,5 @@ import com.example.demo.entity.UserInfo;
 @Repository
 public interface UserInfoRepository extends
 		JpaRepository<UserInfo, Integer> {
-	 public Optional<UserInfo> findByEmail(String email);
+	public Optional<UserInfo> findByEmail(String email);
 }

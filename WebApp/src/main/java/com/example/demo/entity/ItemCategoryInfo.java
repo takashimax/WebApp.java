@@ -22,5 +22,8 @@ public class ItemCategoryInfo {
 
 	@Column(name = "item_name")
 	private String itemName;
+	
+	@Column(name = "item_genre")
+	private Integer itemGenre;
 
 }

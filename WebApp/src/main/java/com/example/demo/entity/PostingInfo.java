@@ -25,6 +25,11 @@ public class PostingInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postingId;
     
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserInfo userInfo;
+    
     @Column(name = "posting_title")
     private String postingTitle;
     
@@ -42,7 +47,4 @@ public class PostingInfo {
     @Column(name = "update_at")
     private LocalDateTime updateTime;
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserInfo userInfo;
 }

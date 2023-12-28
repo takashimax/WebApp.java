@@ -8,6 +8,12 @@
 
 <body>
 	<h2>HOME</h2>
+	<search>
+		<form th:action="@{/precook}" method="post" th:object="itemCategoryForm">
+			<input type="search" placeholder="食材で検索" />
+			<button type="submit">検索</button>
+		</form>
+	</search>
 	<nav>
 		<ul>
 			<li><a th:href="@{/login}">ログイン</a></li>
@@ -17,12 +23,31 @@
 			<li><a th:href="@{/posting}">投稿する</a></li>
 		</ul>
 	</nav>
-	
-		<div th:each="item : ${itemCategoryInfos}">
-			<a th:href="@{/precook/__${item.itemName}__}">
-				<span th:text="${item.itemName}"></span>
-			</a>
-		</div>
+	<div>
+
+	</div>
+	<th:block th:switch="${itemGenre}">
+		<span th:case=1 th:text="野菜">
+			<div th:each="item : ${itemCategoryInfos}">
+				<ul>
+					<li>
+						<a href="#">野菜</a><a th:href="@{/precook/__${item.itemName}__}">
+							<span th:text="${item.itemName}"></span>
+							<img src="#">
+							<span th:text="${item.itemGenre}"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</span>
+	</th:block>
+	<ul>
+		<li>
+
+		</li>
+	</ul>
+
+
 </body>
 
 </html>

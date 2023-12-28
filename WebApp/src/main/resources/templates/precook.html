@@ -21,8 +21,10 @@
 		<td th:text="*{text}"></td>
 	</tr>
 	<tr th:object="${itemCategoryOpt}">
-		<a th:href="@{https://cookpad.com/search/{itemName}(itemName=${itemName})}" th:text="${itemName} + 'のレシピを検索'"></a>
+		<a th:href="@{https://cookpad.com/search/{itemName}(itemName=${itemName})}"
+			th:text="${itemName} + 'のレシピを検索'"></a>
 	</tr>
+	
 
 </body>
 
